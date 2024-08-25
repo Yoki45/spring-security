@@ -17,6 +17,7 @@ public class SecurityConfiguration {
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable());
         http.authorizeHttpRequests((requests) -> requests
                 .requestMatchers("/accounts", "/balance", "/loans", "/cards").authenticated()
                 .requestMatchers("/notice", "/contact", "/error", "/actuator/**", "/swagger-ui/**", "/v3/api-docs/**",
@@ -39,8 +40,8 @@ public class SecurityConfiguration {
      *
      * @return
      */
-    @Bean
-    public CompromisedPasswordChecker compromisedPasswordChecker() {
-        return new HaveIBeenPwnedRestApiPasswordChecker();
-    }
+//    @Bean
+//    public CompromisedPasswordChecker compromisedPasswordChecker() {
+//        return new HaveIBeenPwnedRestApiPasswordChecker();
+//    }
 }
