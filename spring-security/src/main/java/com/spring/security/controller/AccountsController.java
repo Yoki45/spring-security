@@ -1,7 +1,9 @@
 package com.spring.security.controller;
 
+import com.spring.security.dto.AccountDTO;
 import com.spring.security.dto.ErrorResponseDTO;
 import com.spring.security.dto.ResponseDTO;
+import com.spring.security.service.IAccountService;
 import com.spring.security.utils.Utils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -26,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AccountsController {
 
-
+    private final IAccountService accountService;
 
     @Operation(summary = "Fetch Account Details  REST API", description = "Fetch Account details")
     @ApiResponses({
@@ -38,12 +41,10 @@ public class AccountsController {
     }
     )
     @GetMapping()
-    public ResponseEntity<ResponseDTO> getAccountDetails () {
-        return  ResponseEntity
+    public ResponseEntity<AccountDTO> getAccountDetails(@RequestParam(required = false) Long Id) {
+        return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(new ResponseDTO(Utils.STATUS_200, "Here are the account details from the DB"));
+                .body(accountService.fetchAccountByCustomer(Id));
 
     }
-
-
 }

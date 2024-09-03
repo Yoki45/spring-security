@@ -1,11 +1,15 @@
 package com.spring.security.service;
 
+import com.spring.security.dto.LoginRequestDTO;
 import com.spring.security.dto.UserDTO;
 import com.spring.security.exception.InvalidInputException;
 import com.spring.security.model.Customer;
 import com.spring.security.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +40,10 @@ public class UserServiceImpl implements IUserService {
         log.info("Registered user: {}", customer);
 
         return "User registered successfully";
+    }
+
+    @Override
+    public String login(LoginRequestDTO loginRequestDTO) {
+        return  "User logged in successfully";
     }
 }
