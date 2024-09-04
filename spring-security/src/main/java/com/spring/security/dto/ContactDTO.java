@@ -1,5 +1,6 @@
 package com.spring.security.dto;
 
+import com.spring.security.model.Contact;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,5 +29,16 @@ public class ContactDTO {
 
     @Schema(description = "Date when the contact information was created")
     private Date createDt;
+
+    public ContactDTO(Contact contact) {
+        this.contactEmail = contact.getContactEmail();
+        this.contactId = contact.getContactId();
+        this.contactName = contact.getContactName();
+        this.createDt = contact.getCreateDt();
+        this.message = contact.getMessage();
+        this.subject = contact.getSubject();
+    }
+
+
 
 }

@@ -1,7 +1,10 @@
 package com.spring.security.controller;
 
+import com.spring.security.dto.CardsDTO;
 import com.spring.security.dto.ErrorResponseDTO;
 import com.spring.security.dto.ResponseDTO;
+import com.spring.security.repository.CardsRepository;
+import com.spring.security.service.ICardsService;
 import com.spring.security.utils.Utils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,7 +19,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/cards", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -25,6 +31,8 @@ import org.springframework.web.bind.annotation.RestController;
         description = " ")
 @RequiredArgsConstructor
 public class CardsController {
+
+    private final ICardsService cardsService;
 
 
     @Operation(summary = "Fetch Card Details  REST API", description = "Fetch Card details")
@@ -37,10 +45,10 @@ public class CardsController {
     }
     )
     @GetMapping()
-    public ResponseEntity<ResponseDTO> getCardsDetails () {
+    public ResponseEntity<List<CardsDTO>> getCardsDetails (@RequestParam Long customerId) {
         return  ResponseEntity
                 .status(HttpStatus.OK)
-                .body(new ResponseDTO(Utils.STATUS_200, "Here are the card details from the DB"));
+                .body(cardsService.fetchCardDetails(customerId));
 
     }
 }

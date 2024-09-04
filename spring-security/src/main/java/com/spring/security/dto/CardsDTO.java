@@ -1,9 +1,9 @@
 package com.spring.security.dto;
 
+import com.spring.security.model.Cards;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
 import java.sql.Date;
 
 @Data
@@ -34,4 +34,15 @@ public class CardsDTO {
 
     @Schema(description = "Date when the card was created")
     private Date createDt;
+
+    public CardsDTO(Cards card) {
+        this.amountUsed = card.getAmountUsed();
+        this.availableAmount = card.getAvailableAmount();
+        this.cardId = card.getCardId();
+        this.cardNumber = card.getCardNumber();
+        this.cardType = card.getCardType();
+        this.createDt = card.getCreateDt();
+        this.customerId = card.getCustomerId();
+        this.totalLimit = card.getTotalLimit();
+    }
 }

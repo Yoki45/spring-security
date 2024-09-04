@@ -1,8 +1,8 @@
 package com.spring.security.controller;
 
 import com.spring.security.dto.ErrorResponseDTO;
-import com.spring.security.dto.ResponseDTO;
-import com.spring.security.utils.Utils;
+import com.spring.security.dto.LoansDTO;
+import com.spring.security.service.ILoanService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -16,7 +16,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/loans", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -25,6 +28,8 @@ import org.springframework.web.bind.annotation.RestController;
         description = " ")
 @RequiredArgsConstructor
 public class LoansController {
+
+    private final ILoanService loanService;
 
 
     @Operation(summary = "Fetch Loan Details  REST API", description = "Fetch Loan details")
@@ -37,10 +42,10 @@ public class LoansController {
     }
     )
     @GetMapping()
-    public ResponseEntity<ResponseDTO> getLoansDetails () {
+    public ResponseEntity<List<LoansDTO>> getLoansDetails (@RequestParam Long Id) {
         return  ResponseEntity
                 .status(HttpStatus.OK)
-                .body(new ResponseDTO(Utils.STATUS_200, "Here are the loans details from the DB"));
+                .body(loanService.fetchLoanDetails(Id));
 
     }
 }

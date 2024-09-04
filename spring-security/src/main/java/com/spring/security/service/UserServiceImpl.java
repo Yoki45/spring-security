@@ -7,9 +7,6 @@ import com.spring.security.model.Customer;
 import com.spring.security.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +30,7 @@ public class UserServiceImpl implements IUserService {
         Customer customer = Customer.builder()
                 .password(encryptedPassword)
                 .email(userDTO.getUsername())
+                .name(userDTO.getName())
                 .role(userDTO.getRole()).build();
 
 

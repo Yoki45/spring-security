@@ -1,5 +1,6 @@
 package com.spring.security.dto;
 
+import com.spring.security.model.Loans;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,5 +36,14 @@ public class LoansDTO {
     @Schema(description = "Date when the loan record was created")
     private Date createDt;
 
-
+    public LoansDTO(Loans loans) {
+        this.amountPaid = loans.getAmountPaid();
+        this.createDt = loans.getCreateDt();
+        this.customerId = loans.getCustomerId();
+        this.loanNumber = loans.getLoanNumber();
+        this.loanType = loans.getLoanType();
+        this.outstandingAmount = loans.getOutstandingAmount();
+        this.startDt = loans.getStartDt();
+        this.totalLoan = loans.getTotalLoan();
+    }
 }

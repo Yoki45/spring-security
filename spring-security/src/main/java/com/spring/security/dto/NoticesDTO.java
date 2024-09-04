@@ -1,6 +1,7 @@
 package com.spring.security.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.security.model.Notice;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,4 +34,16 @@ public class NoticesDTO {
     @JsonIgnore
     @Schema(description = "Date when the notice record was last updated", hidden = true)
     private Date updateDt;
+
+
+
+    public NoticesDTO(Notice notice) {
+        this.createDt = notice.getCreateDt();
+        this.noticeBegDt = notice.getNoticBegDt();
+        this.noticeDetails = notice.getNoticeDetails();
+        this.noticeEndDt = notice.getNoticEndDt();
+        this.noticeId = notice.getNoticeId();
+        this.noticeSummary = notice.getNoticeSummary();
+        this.updateDt = notice.getUpdateDt();
+    }
 }
