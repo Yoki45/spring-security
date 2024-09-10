@@ -31,6 +31,7 @@ public class UserServiceImpl implements IUserService {
                 .password(encryptedPassword)
                 .email(userDTO.getUsername())
                 .name(userDTO.getName())
+                .mobileNumber(userDTO.getMobileNumber())
                 .role(userDTO.getRole()).build();
 
 

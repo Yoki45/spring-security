@@ -17,8 +17,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.CacheControl;
+
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping(path = "/notice", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -43,6 +46,7 @@ public class NoticesController {
     public ResponseEntity<List<NoticesDTO>> getNotices () {
         return  ResponseEntity
                 .status(HttpStatus.OK)
+                .cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS))
                 .body(noticeService.fetchAllActiveNotices());
 
     }
