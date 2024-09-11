@@ -21,10 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -59,7 +56,7 @@ public class CustomerController {
                 .body(new ResponseDTO(Utils.STATUS_201, userService.registerUser(userDTO)));
     }
 
-    @RequestMapping("/user")
+    @GetMapping("/user")
     public Customer getUserDetailsAfterLogin(Authentication authentication) {
         Optional<Customer> optionalCustomer = customerRepository.findByEmail(authentication.getName());
         return optionalCustomer.orElse(null);
