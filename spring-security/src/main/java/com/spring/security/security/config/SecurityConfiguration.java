@@ -101,7 +101,10 @@ public class SecurityConfiguration {
                 .requiresChannel(rcc -> rcc.anyRequest().requiresInsecure()) // Only HTTP
 
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/accounts", "/balance", "/loans", "/cards").authenticated()
+                        .requestMatchers("/accounts").hasRole("USER")
+                        .requestMatchers("/balance").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/loans").hasRole("USER")
+                        .requestMatchers("/cards").hasRole("USER")
                         .requestMatchers("/notice", "/contact", "/error", "/actuator/**", "/swagger-ui/**", "/v3/api-docs/**",
                                 "/actuator/health", "/register/**", "/invalidSession").permitAll());
 

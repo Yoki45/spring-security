@@ -1,11 +1,13 @@
 package com.spring.security.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -31,5 +33,9 @@ public class Customer {
 
     @Column(name = "mobile_number")
     private String mobileNumber;
+
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+    @JsonManagedReference  // Maintains the forward reference
+    private Set<Authority> authorities;
 
 }
