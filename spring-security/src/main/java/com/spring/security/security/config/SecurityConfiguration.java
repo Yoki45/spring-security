@@ -2,7 +2,9 @@ package com.spring.security.security.config;
 
 import com.spring.security.exception.CustomAccessDeniedHandler;
 import com.spring.security.exception.CustomBasicAuthenticationEntryPoint;
+import com.spring.security.security.filter.AuthoritiesLoggingAfterFilter;
 import com.spring.security.security.filter.CsrfCookieFilter;
+import com.spring.security.security.filter.RequestValidationBeforeFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -95,6 +97,8 @@ public class SecurityConfiguration {
                         .ignoringRequestMatchers("/contact", "/register/**")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
+                .addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
+                .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
 
                 .sessionManagement(smc -> smc.invalidSessionUrl("/invalidSession").maximumSessions(3).maxSessionsPreventsLogin(true))
 
